@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 40),
@@ -53,37 +53,79 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 32,),
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AppTheme.colors.backgroundPrimary)
-                ),
-                onPressed: (){},
-                icon: Image.asset("image/google.png"),
-                label: Text(
-                    "Entrar com Google",
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: AppTheme.colors.button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.fromBorderSide(BorderSide(color: AppTheme.colors.border))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        height: 57, width: 57,
+                          child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("image/google.png"),
+                              SizedBox(width: 8,),
+                              Container(width: 1, color: AppTheme.colors.border,)
+                            ],
+                          )
+                      ),
+                      Expanded(child: Container()),
+                      Text(
+                        "Entrar com Google",
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppTheme.colors.button
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                    ],
                   ),
                 ),
               ),
               SizedBox(height: 12,),
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(AppTheme.colors.backgroundPrimary)
-                ),
-                onPressed: (){},
-                icon: Image.asset("image/apple.png"),
-                label: Text(
-                    "Entrar com Apple",
-                  style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: AppTheme.colors.button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.fromBorderSide(BorderSide(color: AppTheme.colors.border))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          height: 57, width: 57,
+                          child:
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset("image/apple.png"),
+                              SizedBox(width: 8,),
+                              Container(width: 1, color: AppTheme.colors.border,)
+                            ],
+                          )
+                      ),
+                      Expanded(child: Container()),
+                      Text(
+                        "Entrar com Apple",
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppTheme.colors.button
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                    ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
 
