@@ -3,7 +3,6 @@ import 'package:split_it/modules/login/login_controller.dart';
 import 'package:split_it/modules/login/login_state.dart';
 import 'package:split_it/modules/login/widgets/social_button.dart';
 import 'package:split_it/theme/app_theme.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,9 +17,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     controller = LoginController(onUpdate: () {
-      setState(() {
+      if(controller.state is LoginStateSuccess){
+        final user = (controller.state as LoginStateSuccess).user;
+        Navigator.pushReplacementNamed(context, "/home", arguments: user);
+      }else{
+        setState(() {
 
-      });
+        });
+      }
     });
     super.initState();
   }
