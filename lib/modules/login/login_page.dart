@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:split_it/modules/login/login_controller.dart';
+import 'package:split_it/modules/login/login_state.dart';
+import 'package:split_it/modules/login/widgets/social_button.dart';
 import 'package:split_it/theme/app_theme.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,6 +13,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late LoginController controller;
+
+  @override
+  void initState() {
+    controller = LoginController(onUpdate: () {
+      setState(() {
+
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +38,8 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Container(
                   width: 260,
-                  child: Text(
-                      "Divida suas contas com seus amigos",
-                    style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 40,
-                      color: AppTheme.colors.title
-                    ),
-                  ),
+                  child: Text("Divida suas contas com seus amigos",
+                      style: AppTheme.textStyles.title),
                 ),
               ],
             ),
@@ -42,93 +51,41 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(left: 40),
                 child: ListTile(
                   leading: Image.asset("image/emoji.png"),
-                  title: Text(
-                      "Faça seu login com uma das contas abaixo",
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: AppTheme.colors.button
-                    ),
-                  ),
+                  title: Text("Faça seu login com uma das contas abaixo",
+                      style: AppTheme.textStyles.button),
                 ),
               ),
-              SizedBox(height: 32,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.fromBorderSide(BorderSide(color: AppTheme.colors.border))
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 57, width: 57,
-                          child:
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("image/google.png"),
-                              SizedBox(width: 8,),
-                              Container(width: 1, color: AppTheme.colors.border,)
-                            ],
-                          )
-                      ),
-                      Expanded(child: Container()),
-                      Text(
-                        "Entrar com Google",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: AppTheme.colors.button
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                    ],
+              SizedBox(
+                height: 32,
+              ),
+              if (controller.state is LoginStateLoading) ...[
+                CircularProgressIndicator(),
+              ] else if(controller.state is LoginStateFailure)...[
+                Text((controller.state as LoginStateFailure).message)
+              ] else
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: SocialButtonWidget(
+                    imagePath: "image/google.png",
+                    label: "Entrar com Google",
+                    onTap: () async {
+                      controller.googleSigIn();
+                    },
                   ),
                 ),
+              SizedBox(
+                height: 12,
               ),
-              SizedBox(height: 12,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.fromBorderSide(BorderSide(color: AppTheme.colors.border))
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                          height: 57, width: 57,
-                          child:
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset("image/apple.png"),
-                              SizedBox(width: 8,),
-                              Container(width: 1, color: AppTheme.colors.border,)
-                            ],
-                          )
-                      ),
-                      Expanded(child: Container()),
-                      Text(
-                        "Entrar com Apple",
-                        style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            color: AppTheme.colors.button
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                    ],
-                  ),
-                ),
-              ),
+              //TODO: CONFIGURAR LOGIN APPLE
+              /*Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: SocialButtonWidget(
+                    imagePath: "image/apple.png",
+                    label: "Entrar com Apple",
+                    onTap: (){},
+                  )),*/
             ],
           ),
-
         ],
       ),
     );
