@@ -9,6 +9,10 @@ class HomePage extends StatelessWidget {
     final UserModel user = ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
       appBar: AppBar(
+        leading: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(user.photoUrl!),
+        ),
         title: Text(user.name!),
       ),
     );
