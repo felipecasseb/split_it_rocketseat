@@ -42,6 +42,9 @@ dependencies:
   #Social Login
   google_sign_in: ^5.2.3
 
+  #testes
+  mocktail: ^0.1.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
